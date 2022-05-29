@@ -16,3 +16,6 @@ yarn-error.log
 /.vagrant
 Homestead.json
 Homestead.yaml
+
+#reports
+/reports
