@@ -1,7 +1,15 @@
 <?php
 
+use App\Http\Controllers\AuthProfileController;
+use App\Http\Controllers\ProfileController;
+use App\Models\User;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,8 +28,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/example',function(){
     return [
-        "id"=>1,
+        "id"=> 1,
         "name" => "John Doe",
         "token" => \Str::uuid()
     ];
 });
+
+Route::post('login',[AuthProfileController::class,'login'])->name('sanctum.login');
+Route::post('logout',[AuthProfileController::class,'login'])->name('sanctum.logout');
+Route::post('forgot-password',[AuthProfileController::class,'forgot'])->name('password.email');
+Route::post('reset-password',[AuthProfileController::class,'reset'])->name('password.update');
+
+
+Route::post('register',[ProfileController::class,'store'])->name('profile.register');
+Route::get('user',[ProfileController::class,'index'])->middleware('auth:sanctum');
+
