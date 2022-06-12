@@ -3,12 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Profile\RegisterRequest;
+use App\Http\Resources\Profile\ProfileResource;
 use App\Library\Profiles\ProfileService;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,27 +23,7 @@ class ProfileController extends Controller
      */
     public function index(Request $request)
     {
-        return $request->user();
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(RegisterRequest $request, ProfileService $service)
-    {
-        $user = $service->storeProfile([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => \Hash::make($request->password),
-        ]);
-
-        return response()->json([
-            'user' => $user,
-            'token' => $service->createToken($user,$request->device_name)
-        ],201);
+        return new ProfileResource($request->user());
     }
 
     /**

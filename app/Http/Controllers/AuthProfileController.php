@@ -4,19 +4,40 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Profile\ForgotPasswordRequest;
 use App\Http\Requests\Profile\LoginRequest;
+use App\Http\Requests\Profile\RegisterRequest;
 use App\Http\Requests\Profile\ResetPasswordRequest;
 use App\Library\Profiles\AuthProfileService;
+use App\Library\Profiles\ProfileService;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class AuthProfileController extends Controller
 {
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(RegisterRequest $request, ProfileService $service)
+    {
+        $user = $service->storeProfile([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => \Hash::make($request->password),
+        ]);
+
+        return response()->json([
+            'user' => $user,
+            'token' => $service->createToken($user,$request->device_name)
+        ],201);
+    }
 
     public function login(LoginRequest $request, AuthProfileService $service, ProfileService $profile_service)
     {
 
-        $user = $service->checkUser($email,$password);
+        $user = $service->checkUser($request->email,$request->password);
 
         return response()->json([
             'user' => $user,

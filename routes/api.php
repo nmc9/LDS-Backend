@@ -38,8 +38,7 @@ Route::post('login',[AuthProfileController::class,'login'])->name('sanctum.login
 Route::post('logout',[AuthProfileController::class,'login'])->name('sanctum.logout');
 Route::post('forgot-password',[AuthProfileController::class,'forgot'])->name('password.email');
 Route::post('reset-password',[AuthProfileController::class,'reset'])->name('password.update');
+Route::post('register',[AuthProfileController::class,'register'])->name('profile.register');
 
-
-Route::post('register',[ProfileController::class,'store'])->name('profile.register');
-Route::get('user',[ProfileController::class,'index'])->middleware('auth:sanctum');
+Route::get('profile',[ProfileController::class,'index']);
 
