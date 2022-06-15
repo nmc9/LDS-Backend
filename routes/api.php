@@ -32,7 +32,7 @@ Route::get('/example',function(){
         "name" => "John Doe",
         "token" => \Str::uuid()
     ];
-});
+})->middleware('auth:sanctum');
 
 Route::post('login',[AuthProfileController::class,'login'])->name('sanctum.login');
 Route::post('logout',[AuthProfileController::class,'login'])->name('sanctum.logout');

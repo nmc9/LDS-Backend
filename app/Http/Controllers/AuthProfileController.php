@@ -41,7 +41,7 @@ class AuthProfileController extends Controller
 
         return response()->json([
             'user' => $user,
-            'token' => $profile_service->createToken($request->device_name)
+            'token' => $profile_service->createToken($user,$request->device_name)
         ]);
     }
 
