@@ -13,12 +13,14 @@ class TrustProxies extends Middleware
      * @var array<int, string>|string|null
      */
     protected $proxies = [
+        // "*",
         "http://localhost:19006",
         "http://api.lds.test:19006",
         "http://lds.test:19006",
         "http://localhost:8080",
         "http://api.lds.test:8080",
         "http://lds.test:8080",
+        "http://7a23-73-101-31-51.ngrok.io"
     ];
 
     /**
