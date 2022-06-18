@@ -129,7 +129,7 @@ class CanCreateUserTest extends TestCase
         $this->assertDatabaseHas('availabilities',[
             'day_of_week' => 'sunday',
             'start_time' => '10:00:00',
-            'end_time' => '24:00:00',
+            'end_time' => '00:00:00',
         ]);
 
         $this->assertDatabaseHas('availabilities',[

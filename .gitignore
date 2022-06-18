@@ -20,3 +20,4 @@ Homestead.yaml
 #reports
 /reports
 junit.xml
+/phpunitreports
