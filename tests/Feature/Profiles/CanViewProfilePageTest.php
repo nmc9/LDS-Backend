@@ -33,6 +33,8 @@ class CanViewProfilePageTest extends TestCase
         $response->assertStatus(200);
 
        $this->assertEquals($user->id,$response['data']['id']);
+       $this->assertEquals($user->name,$response['data']['name']);
+       $this->assertEquals($user->email,$response['data']['email']);
 
     }
 

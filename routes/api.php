@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthProfileController;
+use App\Http\Controllers\AvailabilityController;
 use App\Http\Controllers\ProfileController;
+use App\Mail\RegisterMail;
 use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
@@ -27,12 +29,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/example',function(){
+    \Mail::to("nmc9@pct.edu")->send(new RegisterMail("Nicholas Caruso"));
+
     return [
         "id"=> 1,
         "name" => "John Doe",
         "token" => \Str::uuid()
     ];
-})->middleware('auth:sanctum');
+});
 
 Route::post('login',[AuthProfileController::class,'login'])->name('sanctum.login');
 Route::post('logout',[AuthProfileController::class,'login'])->name('sanctum.logout');
@@ -41,4 +45,5 @@ Route::post('reset-password',[AuthProfileController::class,'reset'])->name('pass
 Route::post('register',[AuthProfileController::class,'register'])->name('profile.register');
 
 Route::get('profile',[ProfileController::class,'index']);
+Route::get('availability',[AvailabilityController::class,'index']);
 

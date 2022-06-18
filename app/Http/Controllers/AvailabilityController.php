@@ -2,19 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Profile\AvailabilityCollection;
+use App\Library\Profiles\AvailabilityService;
 use App\Models\Availability;
 use Illuminate\Http\Request;
 
 class AvailabilityController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum');
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, AvailabilityService $service)
     {
-        //
+        return [
+            "data" => $service->listForUser($request->user())
+        ];
     }
 
     /**

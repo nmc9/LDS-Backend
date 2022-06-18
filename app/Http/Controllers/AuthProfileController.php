@@ -7,7 +7,9 @@ use App\Http\Requests\Profile\LoginRequest;
 use App\Http\Requests\Profile\RegisterRequest;
 use App\Http\Requests\Profile\ResetPasswordRequest;
 use App\Library\Profiles\AuthProfileService;
+use App\Library\Profiles\AvailabilityService;
 use App\Library\Profiles\ProfileService;
+use App\Mail\RegisterMail;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -20,13 +22,22 @@ class AuthProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function register(RegisterRequest $request, ProfileService $service)
+    public function register(RegisterRequest $request, ProfileService $service, AvailabilityService $availabilityService)
     {
         $user = $service->storeProfile([
             'name' => $request->name,
             'email' => $request->email,
             'password' => \Hash::make($request->password),
         ]);
+
+        if($request->availabilities){
+            $availabilityService->store($user,$request->availabilities);
+        }
+
+
+        \Mail::to($user)->send(new RegisterMail($user->name));
+        //$this-> send email
+
 
         return response()->json([
             'user' => $user,

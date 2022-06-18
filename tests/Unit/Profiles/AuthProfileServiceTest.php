@@ -11,14 +11,14 @@ class AuthProfileServiceTest extends TestCase
 {
 
 
-    public function xtest_create_token_returns_token()
-    {
-        $mock = \Mockery::mock(User::class);
-        $mock->shouldReceive('createToken')->andReturn("ABC123");
+    // public function xtest_create_token_returns_token()
+    // {
+    //     $mock = \Mockery::mock(User::class);
+    //     $mock->shouldReceive('createToken')->andReturn("ABC123");
 
 
-        $service = new AuthProfileService();
+    //     $service = new AuthProfileService();
 
-        $this->assertTrue("ABC123",$service->createToken($mock,"Device"));
-    }
+    //     $this->assertTrue("ABC123",$service->createToken($mock,"Device"));
+    // }
 }

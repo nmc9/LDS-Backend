@@ -17,12 +17,17 @@ class CanCreateUserTest extends TestCase
      */
     public function test_can_create_a_profile()
     {
+
+        // \Mail::fake();
+
         $response = $this->json('POST','/api/register',[
             'name' => 'Test User',
             'email' => 'test@example.com',
             'password' => 'password',
             'device_name' => 'Nick\'s Phone'
         ]);
+
+        // $response->dump();
 
         $response->assertStatus(201);
 
@@ -50,7 +55,51 @@ class CanCreateUserTest extends TestCase
             'name' => 'Test User',
             'email' => 'test@example.com',
             'password' => 'password',
-            'device_name' => 'Nick\'s Phone'
+            'device_name' => 'Nick\'s Phone',
+            'availabilities' => [
+                "sunday" => [
+                    "start" => 
+                    [
+                        "hours" =>  10,
+                        "minutes" =>  0
+                    ],
+                    "end" => []
+                ],
+                "monday" => [
+                    "start" => 
+                    [
+                        "hours" =>  10,
+                        "minutes" =>  0
+                    ],
+                    "end" => [
+                        "hours" =>  20,
+                        "minutes" =>  0
+                    ],
+                ],
+                "tuesday" => [
+                    "start" => [],
+                    "end" => [
+                        "hours" =>  20,
+                        "minutes" =>  0
+                    ],
+                ],
+                "wednesday" => [
+                    "start" => [],
+                    "end" => [],
+                ],
+                "thursday" => [
+                    "start" => [],
+                    "end" => [],
+                ],
+                "friday" => [
+                    "start" => [],
+                    "end" => [],
+                ],
+                "saturday" => [
+                    "start" => [],
+                    "end" => [],
+                ],
+            ]
         ]);
 
         $response->assertStatus(201);
@@ -72,7 +121,21 @@ class CanCreateUserTest extends TestCase
         ]); 
 
         $this->assertDatabaseHas('availabilities',[
+            'day_of_week' => 'monday',
+            'start_time' => '10:00:00',
+            'end_time' => '20:00:00',
+        ]);
 
+        $this->assertDatabaseHas('availabilities',[
+            'day_of_week' => 'sunday',
+            'start_time' => '10:00:00',
+            'end_time' => '24:00:00',
+        ]);
+
+        $this->assertDatabaseHas('availabilities',[
+            'day_of_week' => 'tuesday',
+            'start_time' => '00:00:00',
+            'end_time' => '20:00:00',
         ]);
     }
 
