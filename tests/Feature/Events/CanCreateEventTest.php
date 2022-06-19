@@ -38,6 +38,7 @@ class CanCreateEventTest extends TestCase
 
         $response->assertJsonStructure([
             "data" => [
+                'id',
                 'name',
                 'description',
                 'location',

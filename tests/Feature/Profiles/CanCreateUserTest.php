@@ -137,6 +137,10 @@ class CanCreateUserTest extends TestCase
             'start_time' => '00:00:00',
             'end_time' => '20:00:00',
         ]);
+
+        $this->assertDatabaseMissing('availabilities',[
+            'day_of_week' => 'wednesday',
+        ]);
     }
 
 

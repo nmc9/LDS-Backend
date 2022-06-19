@@ -13,6 +13,9 @@ class AvailabilityService
     {
         $avs = [];
         foreach($data as $day_of_week => $range){
+            if($this->shouldSkip($range)){
+                continue;
+            }
 
             $av = new Availability;
             if(isset($range['start']) && $range["start"] !== []){
@@ -45,6 +48,13 @@ class AvailabilityService
                 "end" => ["hours" => (int) $item->end_time->format("H"), "minutes" => (int) $item->end_time->format("i")],
             ];
         });
+    }
+
+    private function shouldSkip($range){
+        return !(
+            (isset($range['start']) && $range["start"] !== []) || (isset($range['end']) && $range["end"] !== [])
+        );
+
     }
 
 
