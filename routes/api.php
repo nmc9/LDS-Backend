@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthProfileController;
 use App\Http\Controllers\AvailabilityController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProfileController;
 use App\Mail\RegisterMail;
 use App\Models\User;
@@ -47,3 +48,5 @@ Route::post('register',[AuthProfileController::class,'register'])->name('profile
 Route::get('profile',[ProfileController::class,'index']);
 Route::get('availability',[AvailabilityController::class,'index']);
 
+Route::post('event',[EventController::class,'store']);
+Route::get('event/{event}',[EventController::class,'show']);

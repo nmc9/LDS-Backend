@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Availability;
+use App\Models\Event;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -46,5 +47,9 @@ class User extends Authenticatable
 
     public function availabilities(){
         return $this->hasMany(Availability::class);
+    }
+
+    public function events(){
+        return $this->hasMany(Event::class);
     }
 }
