@@ -46,6 +46,8 @@ Route::post('reset-password',[AuthProfileController::class,'reset'])->name('pass
 Route::post('register',[AuthProfileController::class,'register'])->name('profile.register');
 
 Route::get('profile',[ProfileController::class,'index']);
+Route::get('search/profile/{search}',[ProfileController::class,'search']);
+
 Route::get('availability',[AvailabilityController::class,'index']);
 
 Route::post('event',[EventController::class,'store']);

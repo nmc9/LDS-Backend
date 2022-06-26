@@ -17,4 +17,9 @@ class ProfileService
     {
         return $user->createToken($device_name)->plainTextToken;
     }
+
+    public function searchProfiles($term)
+    {
+        return User::where('email','LIKE',$term)->orWhere('name','LIKE',$term)->get();
+    }
 }

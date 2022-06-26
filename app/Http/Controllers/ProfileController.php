@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Profile\ProfileSearchRequest;
 use App\Http\Requests\Profile\RegisterRequest;
+use App\Http\Resources\Profile\ProfileCollection;
 use App\Http\Resources\Profile\ProfileResource;
 use App\Library\Profiles\ProfileService;
 use App\Models\User;
@@ -24,6 +26,17 @@ class ProfileController extends Controller
     public function index(Request $request)
     {
         return new ProfileResource($request->user());
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function search(ProfileSearchRequest $request, string $search, ProfileService $service)
+    {
+        
+        return new ProfileCollection($service->searchProfiles($search));
     }
 
     /**
