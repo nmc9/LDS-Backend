@@ -11,8 +11,8 @@ class Availability extends Model
     use HasFactory;
 
     protected $casts = [
-        'start_time' => 'datetime',
-        'end_time' => 'datetime',
+        'start_time' => 'datetime:H:m:s',
+        'end_time' => 'datetime:H:m:s',
     ];
 
     public function user(){
