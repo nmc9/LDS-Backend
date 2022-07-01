@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Profiles;
 
+use App\Models\Availability;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -69,7 +70,7 @@ class CanCreateUserTest extends TestCase
                     "start" => 
                     [
                         "hours" =>  10,
-                        "minutes" =>  0
+                        "minutes" =>  1
                     ],
                     "end" => [
                         "hours" =>  20,
@@ -104,6 +105,7 @@ class CanCreateUserTest extends TestCase
 
         $response->assertStatus(201);
 
+// dd(Availability::first()->toArray());
         $response->assertJsonStructure([
             "user" => [
                 "id",
@@ -122,14 +124,14 @@ class CanCreateUserTest extends TestCase
 
         $this->assertDatabaseHas('availabilities',[
             'day_of_week' => 'monday',
-            'start_time' => '10:00:00',
+            'start_time' => '10:01:00',
             'end_time' => '20:00:00',
         ]);
 
         $this->assertDatabaseHas('availabilities',[
             'day_of_week' => 'sunday',
             'start_time' => '10:00:00',
-            'end_time' => '00:00:00',
+            'end_time' => '23:59:00',
         ]);
 
         $this->assertDatabaseHas('availabilities',[

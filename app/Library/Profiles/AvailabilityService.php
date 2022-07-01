@@ -5,9 +5,13 @@ namespace App\Library\Profiles;
 use App\Http\Requests\Profile\RegisterRequest;
 use App\Models\Availability;
 use App\Models\User;
+use Carbon\Carbon;
 
 class AvailabilityService
 {
+
+    const START_FALLBACK = "00:00:00";
+    const END_FALLBACK = "23:59:00";
 
     public function store($user,$data)
     {
@@ -19,15 +23,15 @@ class AvailabilityService
 
             $av = new Availability;
             if(isset($range['start']) && $range["start"] !== []){
-                $av->start_time = $range["start"]["hours"] . ":" . $range["start"]["minutes"];
+                $av->start_time = Carbon::createFromTime($range["start"]["hours"],$range["start"]["minutes"])->format("H:i:s");
             }else{
-                $av->start_time = "00:00";
+                $av->start_time = static::START_FALLBACK;
             }
 
             if(isset($range['end']) && $range["end"] !== []){
-                $av->end_time = $range["end"]["hours"] . ":" . $range["end"]["minutes"];
+                $av->end_time = Carbon::createFromTime($range["end"]["hours"],$range["end"]["minutes"])->format("H:i:s");
             }else{
-                $av->end_time = "24:00";
+                $av->end_time = static::END_FALLBACK;
             }
 
             $av->day_of_week = $day_of_week;
