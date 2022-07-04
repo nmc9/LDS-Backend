@@ -20,6 +20,11 @@ class ProfileService
 
     public function searchProfiles($term)
     {
-        return User::where('email','LIKE',$term)->orWhere('name','LIKE',$term)->get();
+        return User::where('email','LIKE',"%$term%")->orWhere('name','LIKE',"%$term%")->get();
+    }
+
+    public function randomProfiles()
+    {
+        return User::inRandomOrder()->get();
     }
 }

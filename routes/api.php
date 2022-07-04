@@ -3,6 +3,8 @@
 use App\Http\Controllers\AuthProfileController;
 use App\Http\Controllers\AvailabilityController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\FriendController;
+use App\Http\Controllers\ImaginaryFriendController;
 use App\Http\Controllers\ProfileController;
 use App\Mail\RegisterMail;
 use App\Models\User;
@@ -46,9 +48,12 @@ Route::post('reset-password',[AuthProfileController::class,'reset'])->name('pass
 Route::post('register',[AuthProfileController::class,'register'])->name('profile.register');
 
 Route::get('profile',[ProfileController::class,'index']);
-Route::get('search/profile/{search}',[ProfileController::class,'search']);
+Route::get('search/profile',[ProfileController::class,'search']);
 
 Route::get('availability',[AvailabilityController::class,'index']);
 
 Route::post('event',[EventController::class,'store']);
 Route::get('event/{event}',[EventController::class,'show']);
+
+Route::post('friend',[FriendController::class,'store']);
+Route::post('imaginary/friend',[ImaginaryFriendController::class,'store']);

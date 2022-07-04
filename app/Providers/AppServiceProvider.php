@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
     {
 
         if ($this->app->environment('local')) {
-            \Mail::alwaysTo("nmc9pct@gmail.com");
+            \Mail::alwaysTo("123qweasd123123@gmail.com");
         }
     }
 }

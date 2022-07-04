@@ -4,7 +4,7 @@ namespace App\Http\Resources\Profile;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProfileResource extends JsonResource
+class FriendResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,8 +16,11 @@ class ProfileResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'email' => $this->email,
+            'to_user_id' => $this->to_user_id,
+            'from_user_id' => $this->from_user_id,
+            'accepted' => $this->accepted,
+            'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
+            'created_at' => $this->created_at->format('Y-m-d H:i:s'),
         ];
     }
 }

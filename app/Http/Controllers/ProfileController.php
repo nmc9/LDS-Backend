@@ -33,10 +33,12 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function search(ProfileSearchRequest $request, string $search, ProfileService $service)
+    public function search(Request $request, ProfileService $service)
     {
-        
-        return new ProfileCollection($service->searchProfiles($search));
+        if($request->search){
+            return new ProfileCollection($service->searchProfiles($request->search));
+        }
+        return new ProfileCollection($service->randomProfiles());
     }
 
     /**
