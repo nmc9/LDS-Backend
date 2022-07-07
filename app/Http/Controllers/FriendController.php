@@ -55,8 +55,8 @@ class FriendController extends Controller
         \Mail::to($friendUser)->send(new FriendRequestMail(
             $requestingUser->name,
             $friendUser->name,
-            "https://google.com?token=" . $token,
-            "https://google.com?token=" . $token,
+            route('friend.response') . "?token=" . $token . "&response=Accept",
+            route('friend.response') . "?token=" . $token . "&response=Decline",
         ));
 
         return response()->json([
@@ -71,19 +71,6 @@ class FriendController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Friend $friend)
-    {
-        //
-    }
-
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Friend  $friend
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Friend $friend)
     {
         //
     }

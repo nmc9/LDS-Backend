@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\WebFriendResponseController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +16,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('lds.home');
+
+
+Route::get('/friend-response',[WebFriendResponseController::class,'response'])->name('friend.response');
+
+
+// Route::get('/friend-response',[WebFriendResponseController::class,'response'])->name('friend.response');
+Route::get('/friend-i-response',[WebFriendResponseController::class,'iresponse'])->name('friend.iresponse');
+
+Route::get('/friend-callback',[WebFriendResponseController::class,'callback'])->name('friend.response.callback');

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,19 @@ class FriendFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'from_user_id' => User::factory(),
+            'to_user_id' => User::factory(),
+            'accepted' => false,
+            'token' => \Str::random(10),
         ];
+    }
+
+    public function accepted()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'accepted' => true,
+            ];
+        });
     }
 }

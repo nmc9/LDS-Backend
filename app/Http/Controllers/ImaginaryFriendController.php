@@ -61,14 +61,17 @@ class ImaginaryFriendController extends Controller
         \Mail::to($request->email)->send(new ImaginaryFriendRequestMail(
             $requestingUser->name,
             $request->email,
-            "https://google.com?token=" . $token,
-            "https://google.com?token=" . $token,
+            route('friend.iresponse') . "?token=" . $token . "&response=Accept",
+            route('friend.iresponse') . "?token=" . $token . "&response=Decline",
         ));
 
         return response()->json([
             'msg' => 'Success'
         ]);
     }
+
+
+
 
     /**
      * Display the specified resource.

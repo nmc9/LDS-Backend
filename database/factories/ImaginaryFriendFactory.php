@@ -17,7 +17,19 @@ class ImaginaryFriendFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'from_user_id' => User::factory(),
+            'to_user_email' => $this->faker->email,
+            'accepted' => false,
+            'token' => \Str::random(10),
         ];
+    }
+
+    public function accepted()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'accepted' => true,
+            ];
+        });
     }
 }
