@@ -66,7 +66,7 @@ class ImaginaryFriendController extends Controller
         ));
 
         return response()->json([
-            'msg' => 'Success'
+            'message' => 'Success'
         ]);
     }
 

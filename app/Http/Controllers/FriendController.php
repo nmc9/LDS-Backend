@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Profile\CreateFriendRequest;
 use App\Http\Resources\Profile\FriendResource;
+use App\Library\Profiles\FriendMailService;
+use App\Library\Profiles\FriendService;
 use App\Mail\FriendRequestMail;
 use App\Mail\NotificationFriendRequestMail;
 use App\Models\Friend;
@@ -34,33 +36,18 @@ class FriendController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateFriendRequest $request)
+    public function store(CreateFriendRequest $request, FriendService $service, FriendMailService $mailService)
     {
         $friendUser = User::findOrFail($request->user_id);
         $requestingUser = \Auth::user();
 
-        $token = \Str::random(60);
+        $token = $service->addFriend($requestingUser->id,$friendUser->id);
 
-        $friend = Friend::create([
-            'from_user_id' => $requestingUser->id,
-            'to_user_id' => $request->user_id,
-            'token' => $token
-        ]);
-
-        \Mail::to($requestingUser)->send(new NotificationFriendRequestMail(
-            $friendUser->name,
-            $requestingUser->name,
-        ));
-
-        \Mail::to($friendUser)->send(new FriendRequestMail(
-            $requestingUser->name,
-            $friendUser->name,
-            route('friend.response') . "?token=" . $token . "&response=Accept",
-            route('friend.response') . "?token=" . $token . "&response=Decline",
-        ));
+        $mailService->sendRequestNotification($requestingUser,$friendUser);
+        $mailService->sendRequestMail($requestingUser,$friendUser,$token);
 
         return response()->json([
-            'msg' => 'Success'
+            'message' => 'Success'
         ]);
     }
 

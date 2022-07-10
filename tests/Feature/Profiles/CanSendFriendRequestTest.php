@@ -48,7 +48,7 @@ class CanSendFriendRequestTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertJson([
-            'msg' => 'Success'
+            'message' => 'Success'
         ]);
 
         $this->assertDatabaseHas('friends',[
@@ -88,7 +88,7 @@ class CanSendFriendRequestTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertJson([
-            'msg' => 'Success'
+            'message' => 'Success'
         ]);
 
         $this->assertDatabaseHas('imaginary_friends',[
