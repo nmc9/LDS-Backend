@@ -49,7 +49,11 @@ class User extends Authenticatable
         return $this->hasMany(Availability::class);
     }
 
+    public function ownedEvents(){
+        return $this->hasMany(Event::class,"owner_id","id");
+    }
+
     public function events(){
-        return $this->hasMany(Event::class);
+        return $this->belongsToMany(Event::class);
     }
 }

@@ -18,7 +18,11 @@ class Event extends Model
     protected $guarded = [];
 
 
-    public function user(){
-        $this->belongsTo(User::class);
+    public function owner(){
+        $this->belongsTo(User::class,"id","owner_id");
+    }
+
+    public function users(){
+        return $this->belongsToMany(User::class);
     }
 }

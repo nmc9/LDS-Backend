@@ -54,6 +54,10 @@ Route::get('availability',[AvailabilityController::class,'index']);
 
 Route::post('event',[EventController::class,'store']);
 Route::get('event/{event}',[EventController::class,'show']);
+Route::get('event',[EventController::class,'index']);
+Route::put('event/{event}',[EventController::class,'update']);
+
+
 
 Route::post('friend',[FriendController::class,'store']);
 Route::post('imaginary/friend',[ImaginaryFriendController::class,'store']);

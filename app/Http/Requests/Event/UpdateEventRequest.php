@@ -4,7 +4,7 @@ namespace App\Http\Requests\Event;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateEventRequest extends FormRequest
+class UpdateEventRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,6 @@ class CreateEventRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255',
             'description' => 'required',
             'location' => 'required|max:255',
             'start_datetime' => 'required|date_format:Y-m-d H:i:s',

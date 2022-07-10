@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Event\CreateEventRequest;
+use App\Http\Requests\Event\UpdateEventRequest;
+use App\Http\Resources\Event\EventCollection;
 use App\Http\Resources\Event\EventResource;
+use App\Http\Resources\Event\EventSearchCollection;
+use App\Library\Events\EventSearchService;
 use App\Models\Event;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
@@ -14,6 +18,7 @@ class EventController extends Controller
     public function __construct()
     {
         $this->middleware('auth:sanctum');
+        $this->authorizeResource(Event::class, 'event');
     }
 
 
@@ -22,10 +27,16 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // public function index()
-    // {
-    //     //
-    // }
+    public function index(Request $request, EventSearchService $service)
+    {
+        if($request->search){
+            $events = $service->searchAllUsersEvents($request->user(),$request->search);
+        }else{
+            $events = $service->allUsersEvents($request->user());
+        }
+
+        return new EventSearchCollection($events); 
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -56,17 +67,23 @@ class EventController extends Controller
         return new EventResource($event);
     }
 
-    // /**
-    //  * Update the specified resource in storage.
-    //  *
-    //  * @param  \Illuminate\Http\Request  $request
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function update(Request $request, $id)
-    // {
-    //     //
-    // }
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(UpdateEventRequest $request, Event  $event)
+    {
+        $event->update([
+            "description" => $request->description,
+            "location" => $request->location,
+            "start_datetime" => $request->start_datetime,
+            "end_datetime" => $request->end_datetime,
+        ]);
+        return new EventResource($event);
+    }
 
     // /**
     //  * Remove the specified resource from storage.
