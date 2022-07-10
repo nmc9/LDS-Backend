@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Profile\CreateFriendRequest;
 use App\Http\Resources\Profile\FriendResource;
+use App\Http\Resources\Profile\ProfileCollection;
 use App\Library\Profiles\FriendMailService;
 use App\Library\Profiles\FriendService;
 use App\Mail\FriendRequestMail;
@@ -25,9 +26,15 @@ class FriendController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, FriendService $service)
     {
-        //
+        if($request->includeUnaccepted){
+            $friends = $service->getFriendsWithUnaccepted(\Auth::user());
+        }else{
+            $friends = $service->getFriends(\Auth::user());            
+        }
+
+        return new ProfileCollection($friends);
     }
 
     /**

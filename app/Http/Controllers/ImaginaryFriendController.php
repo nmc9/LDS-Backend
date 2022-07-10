@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Profile\CreatImaginaryFriendRequest;
+use App\Http\Requests\Profile\CreateImaginaryFriendRequest;
 use App\Mail\ImaginaryFriendRequestMail;
 use App\Mail\NotificationImaginaryFriendRequestMail;
 use App\Models\ImaginaryFriend;
@@ -41,7 +41,7 @@ class ImaginaryFriendController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreatImaginaryFriendRequest $request)
+    public function store(CreateImaginaryFriendRequest $request)
     {
         $requestingUser = \Auth::user();
 

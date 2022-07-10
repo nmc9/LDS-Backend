@@ -4,6 +4,9 @@ namespace App\Models;
 
 use App\Models\Availability;
 use App\Models\Event;
+use App\Models\Friend;
+use App\Models\Invitation;
+use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -54,6 +57,34 @@ class User extends Authenticatable
     }
 
     public function events(){
-        return $this->belongsToMany(Event::class);
+        return $this->belongsToMany(Event::class, 'invitations');
     }
+
+
+    public function sentFriends(){
+        return $this->belongsToMany(User::class, "friends", "from_user_id", "to_user_id")
+        ->withPivot(["accepted","token"])
+        ->wherePivot('accepted', 1);
+    }
+
+    public function receievedFriends(){
+        return $this->belongsToMany(User::class, "friends", "to_user_id", "from_user_id")
+        ->withPivot(["accepted","token"])
+        ->wherePivot('accepted', 1);
+    }
+
+    public function allSentFriends(){
+        return $this->belongsToMany(User::class, "friends", "from_user_id", "to_user_id")
+        ->withPivot(["accepted","token"]);
+    }
+
+    public function allReceievedFriends(){
+        return $this->belongsToMany(User::class, "friends", "to_user_id", "from_user_id")
+        ->withPivot(["accepted","token"]);
+    }
+
+    public function invitations(){
+        return $this->hasMany(Invitation::class);
+    }
+
 }

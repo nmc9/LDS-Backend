@@ -6,7 +6,9 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\FriendController;
 use App\Http\Controllers\ImaginaryFriendController;
 use App\Http\Controllers\ProfileController;
+use App\Library\Invitations\InvitationMailService;
 use App\Mail\RegisterMail;
+use App\Models\Event;
 use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
@@ -61,3 +63,10 @@ Route::put('event/{event}',[EventController::class,'update']);
 Route::get('friend',[FriendController::class,'index']);
 Route::post('friend',[FriendController::class,'store']);
 Route::post('imaginary/friend',[ImaginaryFriendController::class,'store']);
+
+
+Route::get('mail',function(InvitationMailService $serivce){
+    $serivce->sendRequestMail(User::first(),User::first(),Event::first(),"XXX");
+    $serivce->sendReminderMail(User::first(),User::first(),Event::first(),"XXX");
+
+});

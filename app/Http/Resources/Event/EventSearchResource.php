@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Event;
 
+use App\Library\Constants;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class EventSearchResource extends JsonResource
@@ -24,16 +25,14 @@ class EventSearchResource extends JsonResource
                 'end' => $this->end_datetime->toDayDateTimeString(),
             ],
             "time_frame_short" => [
-                'start' => $this->start_datetime->format('M jS, Y, g:ia'),
-                'end' => $this->end_datetime->format('M jS, Y, g:ia'),
+                'start' => $this->start_datetime->format(Constants::DATETIME_READABLE_SHORT),
+                'end' => $this->end_datetime->format(Constants::DATETIME_READABLE_SHORT),
             ],
             'time_frame' => [
-                'start' => $this->start_datetime->format('Y-m-d H:i:s'),
-                'end' => $this->end_datetime->format('Y-m-d H:i:s'),
+                'start' => $this->start_datetime->format(Constants::DATETIME_FORMAT),
+                'end' => $this->end_datetime->format(Constants::DATETIME_FORMAT),
             ],
             'owner_id' => $this->owner_id,
         ];
     }
-
-    // July 9, 2022, 1:30pm – July 16, 2022, 3:00pm
 }

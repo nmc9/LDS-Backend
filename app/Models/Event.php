@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Invitation;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -23,6 +24,10 @@ class Event extends Model
     }
 
     public function users(){
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'invitations');
+    }
+
+    public function invitations(){
+        return $this->hasMany(Invitation::class);
     }
 }

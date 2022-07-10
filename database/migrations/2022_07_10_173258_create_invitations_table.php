@@ -13,9 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('event_user', function (Blueprint $table) {
+        Schema::create('invitations', function (Blueprint $table) {
             $table->id();
-            
             $table->foreignId('user_id')
             ->constrained('users')
             ->onDelete('cascade');
@@ -24,7 +23,15 @@ return new class extends Migration
             ->constrained('events')
             ->onDelete('cascade');
 
-            $table->string("notes")->nullable();
+            $table->foreignId('inviter_id')
+            ->nullable()
+            ->constrained('users')
+            ->nullOnDelete();
+
+            $table->tinyInteger('status')->default(0);
+            $table->string('token')->nullable();
+            $table->text("notes")->nullable();
+
             $table->timestamps();
         });
     }
@@ -36,6 +43,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('event_user');
+        Schema::dropIfExists('invitation');
     }
 };

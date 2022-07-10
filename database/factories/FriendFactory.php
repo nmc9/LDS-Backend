@@ -21,7 +21,7 @@ class FriendFactory extends Factory
             'from_user_id' => User::factory(),
             'to_user_id' => User::factory(),
             'accepted' => false,
-            'token' => \Str::random(10),
+            'token' => \Str::random(60),
         ];
     }
 
