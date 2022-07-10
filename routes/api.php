@@ -58,6 +58,6 @@ Route::get('event',[EventController::class,'index']);
 Route::put('event/{event}',[EventController::class,'update']);
 
 
-
+Route::get('friend',[FriendController::class,'index']);
 Route::post('friend',[FriendController::class,'store']);
 Route::post('imaginary/friend',[ImaginaryFriendController::class,'store']);
