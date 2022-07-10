@@ -200,6 +200,7 @@ class CanViewFriendsTest extends TestCase
             "accepted" => false,
         ]);
 
+
         Sanctum::actingAs(
             $user,
             ['*']
