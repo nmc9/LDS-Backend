@@ -48,7 +48,7 @@ class FriendController extends Controller
         $friendUser = User::findOrFail($request->user_id);
         $requestingUser = \Auth::user();
 
-        $token = $service->addFriend($requestingUser->id,$friendUser->id);
+        $token = $service->addFriend($requestingUser->id,$friendUser->id)->token;
 
         $mailService->sendRequestNotification($requestingUser,$friendUser);
         $mailService->sendRequestMail($requestingUser,$friendUser,$token);

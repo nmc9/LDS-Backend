@@ -5,9 +5,13 @@ namespace App\Models;
 use App\Models\Event;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\Pivot;
+use Illuminate\Database\Eloquent\Model;
 
-class Invitation extends Pivot
+class Invitation extends Model
 {
+
+    public $guarded = [];
+    
     public function user(){
         return $this->belongsTo(User::class);
     }

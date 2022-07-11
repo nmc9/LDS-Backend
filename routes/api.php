@@ -5,6 +5,7 @@ use App\Http\Controllers\AvailabilityController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\FriendController;
 use App\Http\Controllers\ImaginaryFriendController;
+use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\ProfileController;
 use App\Library\Invitations\InvitationMailService;
 use App\Mail\RegisterMail;
@@ -65,8 +66,14 @@ Route::post('friend',[FriendController::class,'store']);
 Route::post('imaginary/friend',[ImaginaryFriendController::class,'store']);
 
 
+Route::post('event/{event}/invitation',[InvitationController::class,'store']);
+
+
+
+
+
+//TEST
 Route::get('mail',function(InvitationMailService $serivce){
     $serivce->sendRequestMail(User::first(),User::first(),Event::first(),"XXX");
     $serivce->sendReminderMail(User::first(),User::first(),Event::first(),"XXX");
-
 });

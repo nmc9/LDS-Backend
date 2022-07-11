@@ -12,13 +12,31 @@ class FriendService
     public function addFriend($from_id, $to_id, $token = null)
     {
         $token = $token ?? $this->generateToken();
-        Friend::create([
+        return Friend::create([
             'from_user_id' => $from_id,
             'to_user_id' => $to_id,
             'token' => $token,
             'accepted' => false,
         ]);
-        return $token;
+    }
+
+    public function arentFriends($user,$user2){
+        return !$this->areFriends($user,$user2);
+    }
+
+    public function areFriends($user,$user2){
+        if(! $user instanceof User){
+            $user = User::findOrFail($user);
+        }
+        if(! $user2 instanceof User){
+            $user2 = User::findOrFail($user2);
+        }
+        if($user->sentFriends->contains($user2)){
+            return true;
+        }else if ($user->receievedFriends->contains($user2)){
+            return true;
+        }
+        return false;
     }
 
     public function getFriends($user){

@@ -2,7 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Invitation\SendInvitationRequest;
+use App\Library\Constants;
+use App\Library\Invitations\InvitationMailService;
+use App\Library\Invitations\InvitationService;
+use App\Library\Profiles\FriendService;
+use App\Models\Event;
 use App\Models\Invitation;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class InvitationController extends Controller
@@ -14,23 +21,31 @@ class InvitationController extends Controller
         $this->middleware('auth:sanctum');
     }
     
-    public function store(Request $request, Event $event){
+    public function store(SendInvitationRequest $request, Event $event, FriendService $friendService, InvitationService $service, InvitationMailService $mailService){
 
-        $token = \Str::random(60);
-        $user_ids = [1];
-        foreach ($user_ids as $user_id) {
-            // If Auth::user and $user_id == friends else add to failed
-            // If (event_id,user_id) already exists, add to failed, send a reminder notificaiotn) 
-            Invitation::create([
-                "user_id" => $user_id,
-                "event_id" => $event_id,
-                "inviter_id" => Auth::user()->id,
-                "status" => Constants::INVITATION_PENDING,
-                "token" => $token,
-            ]);
+        $results = $service->createInvitations($friendService,
+            $request->users,
+            $event->id,
+            \Auth::user(),
+        );
 
-            // $this->sendInvitaitonEmail($token)
-        }
+        $mailService->sendBasedOnCreatedInviations(
+            $results,
+            $event,
+            \Auth::user(),
+        );
+
+
+        $jsonResult = collect($results)->map(function($result){
+            return [ $result[1]->id,$result[0] ];
+        });
+
+
+        return response()->json([
+            'message' => 'Success',
+            'results' => $jsonResult
+        ]);
+
     }
 
 
