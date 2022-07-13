@@ -58,7 +58,7 @@ class InvitationService
     }
 
     public function getInvitiation($user, $event){
-        return Invitation::where("user_id",$user)->where("event",$event)->first();
+        return Invitation::where("user_id",$user)->where("event_id",$event)->first();
     }
 
 }
