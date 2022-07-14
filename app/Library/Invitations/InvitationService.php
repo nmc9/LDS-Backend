@@ -68,5 +68,12 @@ class InvitationService
         return Invitation::where("user_id",$user)->where("event_id",$event)->first();
     }
 
+    public function getAccepted($event){
+        return $event->acceptedUsers;
+    }
+
+    public function getPending($event){
+        return $event->pendingUsers;
+    }
 
 }

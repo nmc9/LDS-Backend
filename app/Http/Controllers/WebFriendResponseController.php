@@ -9,15 +9,6 @@ use Illuminate\Http\Request;
 class WebFriendResponseController extends Controller
 {
 
-
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Friend  $friend
-     * @return \Illuminate\Http\Response
-     */
     public function response(Request $request)
     {
         if(!$request->token){

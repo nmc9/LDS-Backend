@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Library\Constants;
 use App\Models\Event;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -23,7 +24,7 @@ class InvitationFactory extends Factory
             'user_id' => User::factory(),
             'event_id' => Event::factory(),
             'inviter_id' => $this->faker->boolean ? User::factory() : null,
-            'status' => $this->randomElement([
+            'status' => $this->faker->randomElement([
                 Constants::INVITATION_PENDING,
                 Constants::INVITATION_ACCEPTED,
                 Constants::INVITATION_DECLINED,

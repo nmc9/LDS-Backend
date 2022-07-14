@@ -48,12 +48,12 @@ class InvitationMailService
 
 
     public function getAcceptUrl($token){
-        return /*route('invitation.response') . */ "?token=" . $token . "&response=Accept";
+        return route('invitation.response') . "?token=" . $token . "&response=Accept";
 
     }
 
     public function getDeclineUrl($token){
-        return /* route('invitation.response') . */ "?token=" . $token . "&response=Decline";
+        return  route('invitation.response') . "?token=" . $token . "&response=Decline";
     }
 
     public function toMailableEvent($event){

@@ -23,6 +23,14 @@ class InvitationController extends Controller
         $this->middleware('auth:sanctum');
     }
 
+    public function accepted(Request $request, Event $event, InvitationService $service){
+        return new ProfileCollection($service->getAccepted($event)) ;
+    }
+
+    public function pending(Request $request, Event $event, InvitationService $service){
+        return new ProfileCollection($service->getPending($event)) ;
+    }
+
     public function listAvailable(Request $request, Event $event, FriendService $friendService, AvailableFriendsService $availService){
 
         try{

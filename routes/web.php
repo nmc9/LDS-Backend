@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\WebFriendResponseController;
+use App\Http\Controllers\WebInvitationResponseController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,9 +21,8 @@ Route::get('/', function () {
 
 
 Route::get('/friend-response',[WebFriendResponseController::class,'response'])->name('friend.response');
-
-
-// Route::get('/friend-response',[WebFriendResponseController::class,'response'])->name('friend.response');
 Route::get('/friend-i-response',[WebFriendResponseController::class,'iresponse'])->name('friend.iresponse');
-
 Route::get('/friend-callback',[WebFriendResponseController::class,'callback'])->name('friend.response.callback');
+
+Route::get('/invitation-response',[WebInvitationResponseController::class,'response'])->name('invitation.response');
+Route::get('/invitation-callback',[WebInvitationResponseController::class,'callback'])->name('invitation.response.callback');

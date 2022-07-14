@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Library\Constants;
 use App\Models\Invitation;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -29,5 +30,17 @@ class Event extends Model
 
     public function invitations(){
         return $this->hasMany(Invitation::class);
+    }
+
+    public function acceptedUsers(){
+        return $this->belongsToMany(User::class, 'invitations')
+        ->withPivot(["status","token"])
+        ->wherePivot('status',Constants::INVITATION_ACCEPTED);
+    }
+
+    public function pendingUsers(){
+        return $this->belongsToMany(User::class, 'invitations')
+        ->withPivot(["status","token"])
+        ->wherePivot('status',Constants::INVITATION_PENDING);
     }
 }
