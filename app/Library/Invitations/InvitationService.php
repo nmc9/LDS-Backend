@@ -4,6 +4,7 @@ namespace App\Library\Invitations;
 
 use App\Http\Requests\Profile\RegisterRequest;
 use App\Library\Constants;
+use App\Library\OverlappingTime;
 use App\Library\Profiles\FriendService;
 use App\Mail\InvitationReminderMail;
 use App\Mail\InvitationRequestMail;
@@ -13,12 +14,18 @@ use App\Models\User;
 
 class InvitationService
 {
+    private $overlappingTime;
 
     const NOT_FRIENDS = 0;
     const INVITATION_CREATED = 1;
     const INVITATION_ALREADY_SENT = 2;
     const INVITATION_ALREADY_DECLINED = 3;
 
+
+    public function __construct(OverlappingTime $overlappingTime)
+    {
+        $this->overlappingTime = $overlappingTime;
+    }
 
     public function createInvitations(FriendService $friendService, $users, $event_id, $auth, )
     {
@@ -60,5 +67,6 @@ class InvitationService
     public function getInvitiation($user, $event){
         return Invitation::where("user_id",$user)->where("event_id",$event)->first();
     }
+
 
 }

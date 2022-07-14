@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Invitation\SendInvitationRequest;
+use App\Http\Resources\Profile\ProfileCollection;
 use App\Library\Constants;
+use App\Library\Invitations\AvailableFriendsService;
 use App\Library\Invitations\InvitationMailService;
 use App\Library\Invitations\InvitationService;
 use App\Library\Profiles\FriendService;
@@ -19,6 +21,22 @@ class InvitationController extends Controller
     public function __construct()
     {
         $this->middleware('auth:sanctum');
+    }
+
+    public function listAvailable(Request $request, Event $event, FriendService $friendService, AvailableFriendsService $availService){
+
+        try{
+            $usersWithAvailability = $friendService->getFriends(\Auth::user())->load('availabilities');
+        }catch(AvailabilityCalculationException $e){
+            return response()->json([
+                "message" => $e->getMessage(),
+            ],500);
+        }
+
+        $friends = $availService->listAvailable($usersWithAvailability,$event);
+
+        return new ProfileCollection($friends);
+
     }
     
     public function store(SendInvitationRequest $request, Event $event, FriendService $friendService, InvitationService $service, InvitationMailService $mailService){

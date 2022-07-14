@@ -62,6 +62,8 @@ Route::put('event/{event}',[EventController::class,'update']);
 
 
 Route::get('friend',[FriendController::class,'index']);
+Route::get('event/{event}/available',[InvitationController::class,'listAvailable']);
+
 Route::post('friend',[FriendController::class,'store']);
 Route::post('imaginary/friend',[ImaginaryFriendController::class,'store']);
 
