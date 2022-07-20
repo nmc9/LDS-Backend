@@ -40,7 +40,7 @@ class AuthProfileController extends Controller
             $availabilityService->store($user,$request->availabilities);
         }
 
-        \Mail::to($user)->send(new RegisterMail($user->name));
+        // \Mail::to($user)->send(new RegisterMail($user->name));
 
         return response()->json([
             'user' => $user,
