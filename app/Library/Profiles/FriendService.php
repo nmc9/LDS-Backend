@@ -42,7 +42,6 @@ class FriendService
     public function getFriends($user){
         $recievedBy = $this->getFriendsReceivedBy($user);
         $sentTo = $this->getFriendsSentTo($user);
-
         return $recievedBy->merge($sentTo);
     }
 
@@ -62,8 +61,20 @@ class FriendService
     }
 
 
+    public function searchFriends($user, $term)
+    {
+        return $this->getFriends($user)->filter(function($item) use ($term){
+            return \Str::contains($item->email,$term) || \Str::contains($item->name,$term);
+        });
+    }
+
 
     public function generateToken(){
         return \Str::random(60);
+    }
+
+    public function removeFriend($user,$user2){
+        Friend::where('to_user_id',$user)->where('from_user_id',$user2)->delete();
+        Friend::where('from_user_id',$user)->where('to_user_id',$user2)->delete();
     }
 }

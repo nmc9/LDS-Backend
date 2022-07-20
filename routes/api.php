@@ -62,6 +62,10 @@ Route::put('event/{event}',[EventController::class,'update']);
 
 
 Route::get('friend',[FriendController::class,'index']);
+Route::get('search/friend',[FriendController::class,'search']);
+Route::delete('friend/{user}',[FriendController::class,'remove']);
+
+
 Route::get('event/{event}/available',[InvitationController::class,'listAvailable']);
 Route::get('event/{event}/accepted',[InvitationController::class,'accepted']);
 Route::get('event/{event}/pending',[InvitationController::class,'pending']);

@@ -37,6 +37,15 @@ class FriendController extends Controller
         return new ProfileCollection($friends);
     }
 
+    public function search(Request $request, FriendService $service)
+    {
+        if($request->search){
+            return new ProfileCollection($service->searchFriends(\Auth::user(),$request->search));
+        }
+        return new ProfileCollection($service->getFriends(\Auth::user()));
+    }
+
+
     /**
      * Store a newly created resource in storage.
      *
@@ -75,8 +84,11 @@ class FriendController extends Controller
      * @param  \App\Models\Friend  $friend
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Friend $friend)
+    public function remove(User $user, FriendService $friendService)
     {
-        //
+        $friendService->removeFriend(\Auth::user(),$user);
+        return response()->json([
+            'message' => 'Success'
+        ]);  
     }
 }
