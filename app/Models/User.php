@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Availability;
+use App\Models\BringableItem;
 use App\Models\Event;
 use App\Models\Friend;
 use App\Models\Invitation;
@@ -85,6 +86,10 @@ class User extends Authenticatable
 
     public function invitations(){
         return $this->hasMany(Invitation::class);
+    }
+
+    public function bringableItems(){
+        return $this->hasMany(BringableItem::class);
     }
 
 }

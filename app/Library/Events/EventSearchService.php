@@ -33,6 +33,4 @@ class EventSearchService
     public function searchInvitedEvents($user, $term){
         return $user->events()->where("name","LIKE", "%$term%")->orWhere("description","LIKE", "%$term%")->orWhere("location","LIKE", "%$term%")->get();
     }
-
-
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthProfileController;
 use App\Http\Controllers\AvailabilityController;
+use App\Http\Controllers\BringableController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\FriendController;
 use App\Http\Controllers\ImaginaryFriendController;
@@ -77,6 +78,8 @@ Route::post('imaginary/friend',[ImaginaryFriendController::class,'store']);
 
 Route::post('event/{event}/invitation',[InvitationController::class,'store']);
 
+
+Route::post('event/{event}/bringable',[BringableController::class,'store']);
 
 
 
