@@ -43,4 +43,8 @@ class Event extends Model
         ->withPivot(["status","token"])
         ->wherePivot('status',Constants::INVITATION_PENDING);
     }
+
+    public function bringables(){
+        return $this->hasMany(Bringable::class);
+    }
 }

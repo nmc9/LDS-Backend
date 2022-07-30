@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources\Bringable;
 
+use App\Http\Resources\Bringable\BringableItemCollection;
+use App\Library\Bringables\BringableService;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class BringableResource extends JsonResource
@@ -14,6 +16,24 @@ class BringableResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        $service = resolve(BringableService::class);
+
+        $required = $this->items->sum('required');
+        $acquired = $this->items->sum('acquired');
+
+        return [
+            'id' => $this->id,
+            'event_id' => $this->event_id,
+            'name' => $this->name,
+            'notes' => $this->notes,
+            'importance' => $this->importance,
+            'items' => new BringableItemCollection($this->items),
+            'required_count' => $required,
+            'acquired_acount' => $acquired,
+            'acquired_all' => $service->isAcquiredAll($required,$acquired),
+        ];
     }
+
+
+
 }

@@ -89,7 +89,7 @@ class User extends Authenticatable
     }
 
     public function bringableItems(){
-        return $this->hasMany(BringableItem::class);
+        return $this->hasMany(BringableItem::class,'assigned_id');
     }
 
 }

@@ -80,6 +80,47 @@ Route::post('event/{event}/invitation',[InvitationController::class,'store']);
 
 
 Route::post('event/{event}/bringable',[BringableController::class,'store']);
+Route::get('event/{event}/bringable',[BringableController::class,'index']);
+Route::get('event/{event}/user/{user}/bringable',[BringableController::class,'user_index']);
+
+
+
+//Update the name/notes/importance
+//Update bringable – id, data
+Route::put('bringable/{bringable}',[BringableController::class,'update']);
+
+//Delete entire bringable object and children
+//Delete bringable - id
+Route::delete('bringable/{bringable}',[BringableController::class,'destory']);
+
+//Delete all items, create a new one with unassigned.
+//Delete all items – id <sum required, clear acquired, set unassigned>
+Route::post('bringable/clearaquired/{bringable}',[BringableController::class,'clearaquired']);
+
+
+//Get list of items from a bringable
+//Search bringable items <> id,
+Route::get('bringable/{bringable}/items',[BringableItemController::class,'index']);
+
+
+//Create an item for this bringable
+//Create bringable item –data
+Route::post('bringable/{bringable}/items',[BringableItemController::class,'create']);
+
+
+//reassign user on an item (one parameter is (KEEP -> should it keep the assigned)
+//Reassign bringable item (keep acquired, remove acquired) – item_id, user_id, keep:Boolean
+Route::post('bringableitem/reassign/{bringable_item}',[BringableItemController::class,'reassign']);
+
+//Update the required or acquired count for an item.
+//Update bringable item count – item_id, data
+Route::put('bringableitem/{bringable_item}',[BringableItemController::class,'update']);
+
+//Delete the bringableitem completely
+//Delete bringable item – item_id
+Route::delete('bringableitem/{bringable_item}',[BringableItemController::class,'destroy']);
+
+
 
 
 

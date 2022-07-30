@@ -21,8 +21,8 @@ class BringableItemFactory extends Factory
         return [
             'bringable_id' => Bringable::factory(),
             'assigned_id' => User::factory(),
-            'required' => $required,
-            'acquired' => $acquired,
+            'required' => $this->faker->randomNumber(),
+            'acquired' => $this->faker->randomNumber(),
         ];
     }
 }

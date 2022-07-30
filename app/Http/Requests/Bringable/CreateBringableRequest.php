@@ -29,7 +29,7 @@ class CreateBringableRequest extends FormRequest
             'name' => 'required',
             'notes' => 'nullable',
             'importance' => ['required', Rule::in(Constants::BRINGABLE_LEVELS)],
-            'assigned_id' => 'required|exists:users,id',
+            'assigned_id' => 'nullable|exists:users,id',
             'required' => 'required|numeric|min:-1',
             'acquired' => 'required|numeric|min:-1',
         ];

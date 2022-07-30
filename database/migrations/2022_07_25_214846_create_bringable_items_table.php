@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('bringable_id')
-            ->constrained('events')
+            ->constrained('bringables')
             ->onDelete('cascade');
 
             $table->integer('required');
