@@ -13,21 +13,22 @@ class BringableService
 
     public function listUserBringables($user,$event,$search = null){
 
-        $bringables = $search ? $event->bringables()
-        ->where('name','LIKE',"%$search%")
-        ->orWhere('notes','LIKE',"%$search%")
-        ->get()
-        : $event->bringables;
-
-
         $bringables = $event->bringables()->with(['items' => function ($query) use ($user) {
             return $query->where('assigned_id', $user->id);
-        }])
-        ->whereHas('items', function (Builder $query) use ($user) {
-            $query->where('assigned_id', $user->id);
-        })->get();
+        }]);
 
-        return $bringables;
+
+        $bringables = $bringables->whereHas('items', function (Builder $query) use ($user) {
+            $query->where('assigned_id', $user->id);
+        });
+
+        if($search){
+            $bringables
+            ->where('name','LIKE',"%$search%")
+            ->orWhere('notes','LIKE',"%$search%");
+        }
+
+        return $bringables->get();
 
 
     }
