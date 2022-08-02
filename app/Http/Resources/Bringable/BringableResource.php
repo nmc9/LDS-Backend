@@ -29,7 +29,7 @@ class BringableResource extends JsonResource
             'importance' => $this->importance,
             'items' => new BringableItemCollection($this->items),
             'required_count' => $required,
-            'acquired_acount' => $acquired,
+            'acquired_count' => $acquired,
             'acquired_all' => $service->isAcquiredAll($required,$acquired),
         ];
     }

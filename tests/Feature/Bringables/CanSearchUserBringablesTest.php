@@ -74,7 +74,7 @@ class CanSearchUserBringablesTest extends TestCase
                     'notes' => $b1->notes,
                     'importance' => $b1->importance,
                     'required_count' => 44,
-                    'acquired_acount' => 44,
+                    'acquired_count' => 44,
                     'acquired_all' => true,
                     'items' => [
                         [
@@ -89,7 +89,7 @@ class CanSearchUserBringablesTest extends TestCase
                     'notes' => $b2->notes,
                     'importance' => $b2->importance,
                     'required_count' => -1,
-                    'acquired_acount' => 99,
+                    'acquired_count' => 99,
                     'acquired_all' => true,
                     'items' => [
                         [
@@ -181,7 +181,7 @@ class CanSearchUserBringablesTest extends TestCase
                     'notes' => $b2->notes,
                     'importance' => $b2->importance,
                     'required_count' => -1,
-                    'acquired_acount' => 99,
+                    'acquired_count' => 99,
                     'acquired_all' => true,
                     'items' => [
                         [
@@ -252,7 +252,7 @@ class CanSearchUserBringablesTest extends TestCase
                     'notes' => $b2->notes,
                     'importance' => $b2->importance,
                     'required_count' => 14,
-                    'acquired_acount' => 7,
+                    'acquired_count' => 7,
                     'acquired_all' => false,
                     'items' => [
                         [

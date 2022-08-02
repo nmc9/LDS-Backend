@@ -15,7 +15,7 @@ class BringableService
 
         $bringables = $event->bringables()->with(['items' => function ($query) use ($user) {
             return $query->where('assigned_id', $user->id);
-        }]);
+        }, 'items.assigned']);
 
 
         $bringables = $bringables->whereHas('items', function (Builder $query) use ($user) {
@@ -43,7 +43,7 @@ class BringableService
         : $event->bringables;
 
         
-        $bringables->load('items');
+        $bringables->load('items.assigned');
         return $bringables;
     }
 

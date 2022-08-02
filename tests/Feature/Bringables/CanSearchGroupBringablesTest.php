@@ -62,7 +62,7 @@ class CanSearchGroupBringablesTest extends TestCase
                     'notes' => $b1->notes,
                     'importance' => $b1->importance,
                     'required_count' => 7,
-                    'acquired_acount' => 7,
+                    'acquired_count' => 7,
                     'acquired_all' => true,
                     'items' => [
                         [
@@ -77,7 +77,7 @@ class CanSearchGroupBringablesTest extends TestCase
                     'notes' => $b2->notes,
                     'importance' => $b2->importance,
                     'required_count' => -1,
-                    'acquired_acount' => 7,
+                    'acquired_count' => 7,
                     'acquired_all' => true,
                     'items' => [
                         [
@@ -162,7 +162,7 @@ class CanSearchGroupBringablesTest extends TestCase
                     'notes' => $b2->notes,
                     'importance' => $b2->importance,
                     'required_count' => 0,
-                    'acquired_acount' => 0,
+                    'acquired_count' => 0,
                     'acquired_all' => false,
                     'items' => [
                     ]
@@ -173,7 +173,7 @@ class CanSearchGroupBringablesTest extends TestCase
                     'notes' => $b3->notes,
                     'importance' => $b3->importance,
                     'required_count' => 0,
-                    'acquired_acount' => 0,
+                    'acquired_count' => 0,
                     'acquired_all' => false,
                     'items' => [
                     ]
@@ -225,7 +225,7 @@ class CanSearchGroupBringablesTest extends TestCase
                     'notes' => $b1->notes,
                     'importance' => $b1->importance,
                     'required_count' => 7,
-                    'acquired_acount' => 7,
+                    'acquired_count' => 7,
                     'acquired_all' => true,
                     'items' => [
                         [

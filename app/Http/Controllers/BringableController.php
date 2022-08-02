@@ -14,6 +14,11 @@ use Illuminate\Http\Request;
 class BringableController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum');
+    }
+
     public function index(Request $request, Event $event, BringableService $service){
 
         if($request->acquired == null){
