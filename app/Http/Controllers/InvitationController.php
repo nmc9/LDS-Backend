@@ -49,17 +49,31 @@ class InvitationController extends Controller
     
     public function store(SendInvitationRequest $request, Event $event, FriendService $friendService, InvitationService $service, InvitationMailService $mailService){
 
-        $results = $service->createInvitations($friendService,
-            $request->users,
-            $event->id,
-            \Auth::user(),
-        );
+        if($request->users){
+            $results = $service->createInvitations($friendService,
+                $request->users,
+                $event->id,
+                \Auth::user(),
+            );
 
-        $mailService->sendBasedOnCreatedInviations(
-            $results,
-            $event,
-            \Auth::user(),
-        );
+            $mailService->sendBasedOnCreatedInviations(
+                $results,
+                $event,
+                \Auth::user(),
+            );
+        }
+
+        if($request->emails){
+            $mailService->sendImaginaryInvitationEmails(
+                $request->emails,
+                $event,
+                \Auth::user(),
+            );
+
+            return response()->json([
+                'message' => 'Success',
+            ]);
+        }
 
 
         $jsonResult = collect($results)->map(function($result){

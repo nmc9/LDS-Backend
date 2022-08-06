@@ -24,8 +24,10 @@ class SendInvitationRequest extends FormRequest
     public function rules()
     {
         return [
-            'users' => 'required|array',
+            'users' => 'required_without:emails|array',
+            'emails' => 'required_without:users|array',
             'users.*' => 'numeric',
+            'emails.*' => 'email',
         ];
     }
 }

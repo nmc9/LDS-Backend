@@ -74,7 +74,7 @@ class FriendService
     }
 
     public function removeFriend($user,$user2){
-        Friend::where('to_user_id',$user)->where('from_user_id',$user2)->delete();
-        Friend::where('from_user_id',$user)->where('to_user_id',$user2)->delete();
+        Friend::where('to_user_id',$user->id)->where('from_user_id',$user2->id)->delete();
+        Friend::where('from_user_id',$user->id)->where('to_user_id',$user2->id)->delete();
     }
 }

@@ -5,6 +5,7 @@ namespace App\Library\Invitations;
 use App\Http\Requests\Profile\RegisterRequest;
 use App\Library\Constants;
 use App\Library\Invitations\InvitationService;
+use App\Mail\InvitationImaginaryRequestMail;
 use App\Mail\InvitationReminderMail;
 use App\Mail\InvitationRequestMail;
 use App\Models\Friend;
@@ -44,6 +45,14 @@ class InvitationMailService
             $this->getAcceptUrl($token),
             $this->getDeclineUrl($token),
         ));  
+    }
+
+    public function sendImaginaryInvitationEmails($emails,$event,$auth){
+        \Mail::to($emails)->send(new InvitationImaginaryRequestMail(
+            $auth->name,
+            $this->toMailableEvent($event),
+        ));  
+
     }
 
 
