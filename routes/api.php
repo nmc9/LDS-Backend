@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthProfileController;
 use App\Http\Controllers\AvailabilityController;
 use App\Http\Controllers\BringableController;
+use App\Http\Controllers\BringableItemController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\FriendController;
 use App\Http\Controllers\ImaginaryFriendController;
@@ -81,18 +82,22 @@ Route::post('event/{event}/invitation',[InvitationController::class,'store']);
 
 Route::post('event/{event}/bringable',[BringableController::class,'store']);
 Route::get('event/{event}/bringable',[BringableController::class,'index']);
+Route::get('event/{event}/bringable/{bringable}',[BringableController::class,'show']);
+
 Route::get('event/{event}/user/{user}/bringable',[BringableController::class,'user_index']);
 
 
-
+// CHECK 
 //Update the name/notes/importance
 //Update bringable – id, data
 Route::put('bringable/{bringable}',[BringableController::class,'update']);
 
+// CHECK
 //Delete entire bringable object and children
 //Delete bringable - id
 Route::delete('bringable/{bringable}',[BringableController::class,'destory']);
 
+//CHECK
 //Delete all items, create a new one with unassigned.
 //Delete all items – id <sum required, clear acquired, set unassigned>
 Route::post('bringable/clearaquired/{bringable}',[BringableController::class,'clearaquired']);
@@ -103,6 +108,7 @@ Route::post('bringable/clearaquired/{bringable}',[BringableController::class,'cl
 Route::get('bringable/{bringable}/items',[BringableItemController::class,'index']);
 
 
+// CHECK
 //Create an item for this bringable
 //Create bringable item –data
 Route::post('bringable/{bringable}/items',[BringableItemController::class,'create']);

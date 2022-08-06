@@ -69,6 +69,10 @@ class BringableController extends Controller
         );
     }
 
+    public function show(Event $event, Bringable $bringable){
+        return new BringableResource($bringable->load(['items','items.assigned']));
+    }
+
     public function update(Request $request, Bringable $bringable){
 
         $bringable->load('items');
