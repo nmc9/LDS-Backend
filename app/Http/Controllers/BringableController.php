@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Bringable\CreateBringableRequest;
+use App\Http\Requests\Bringable\UpdateBringableDetailRequest;
 use App\Http\Resources\Bringable\BringableCollection;
 use App\Http\Resources\Bringable\BringableResource;
+use App\Library\Bringables\BringableManageService;
 use App\Library\Bringables\BringableService;
 use App\Models\Bringable;
 use App\Models\Event;
@@ -73,18 +75,23 @@ class BringableController extends Controller
         return new BringableResource($bringable->load(['items','items.assigned']));
     }
 
-    public function update(Request $request, Bringable $bringable){
+    public function update(UpdateBringableDetailRequest $request, Bringable $bringable, BringableManageService $service){
 
-        $bringable->load('items');
-        /* TODO */
+        $this->authorize('update',$bringable);
+
+
         return new BringableResource(
-            $bringable
+            $service->update($bringable,$request->only([
+                "name","notes","importance"
+            ]))
         );
     }
 
-    public function destory(Request $request, Bringable $bringable){
+    public function destory(Request $request, Bringable $bringable, BringableManageService $service){
 
-        /* TODO */
+        $this->authorize('delete', $bringable);
+
+        $service->delete($bringable);
 
         return response()->json([
             'message' => 'Success'

@@ -19,6 +19,6 @@ class BringableItem extends Model
     }
 
     public function assigned(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,"assigned_id","id");
     }
 }

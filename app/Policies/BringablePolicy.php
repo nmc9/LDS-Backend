@@ -62,7 +62,7 @@ class BringablePolicy
      */
     public function update(User $user, Bringable $bringable)
     {
-        //
+        return $this->eventService->associatedWithEvent($user,$bringable->event);
     }
 
     /**
@@ -74,7 +74,7 @@ class BringablePolicy
      */
     public function delete(User $user, Bringable $bringable)
     {
-        //
+        return $this->eventService->associatedWithEvent($user,$bringable->event);
     }
 
     /**

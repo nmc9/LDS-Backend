@@ -85,11 +85,6 @@ Route::get('event/{event}/bringable',[BringableController::class,'index']);
 Route::get('event/{event}/bringable/{bringable}',[BringableController::class,'show']);
 
 Route::get('event/{event}/user/{user}/bringable',[BringableController::class,'user_index']);
-
-
-// CHECK 
-//Update the name/notes/importance
-//Update bringable – id, data
 Route::put('bringable/{bringable}',[BringableController::class,'update']);
 
 // CHECK
