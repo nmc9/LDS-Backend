@@ -98,8 +98,9 @@ class BringableController extends Controller
         ]);
     }
 
-    public function clearaquired(Request $request, Bringable $bringable){
-        /* TODO */
+    public function clearaquired(Request $request, Bringable $bringable , BringableManageService $service){
+        
+        $service->clearItems($bringable);
 
         return response()->json([
             'message' => 'Success'

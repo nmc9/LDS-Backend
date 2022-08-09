@@ -26,4 +26,11 @@ class BringableManageService
         return true;
     }
 
+    public function clearItems($bringable){
+        $items = $bringable->items();
+
+        $items->delete();
+
+    }
+
 }
